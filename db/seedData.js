@@ -3,12 +3,29 @@
 const client = require("./client")
 
 async function dropTables() {
+  try{
   console.log("Dropping All Tables...")
-  // drop all tables, in the correct order
+  await client.query(`
+  DROP TABLE IF EXISTS mytablename;
+  `);
+  }
+  catch (error){
+    console.error("Error dropping tables!");
+    throw error;
+  }
 }
 
 async function createTables() {
-  console.log("Starting to build tables...")
+  try {
+    console.log("Starting to build tables...");
+    await client.query(`
+    CREATE TALBE mytablename
+    `)
+  } catch (error) {
+    console.error("Error building tables!");
+    throw error;
+    
+  }
   // create all tables, in the correct order
 }
 
