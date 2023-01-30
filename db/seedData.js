@@ -1,4 +1,8 @@
 // require in the database adapter functions as you write them (createUser, createActivity...)
+const { createUser} = require ('./users');
+const {createActivity} = require ('./activities');
+const { createRoutine} = require ('./routines');
+
 // const { } = require('./');
 const client = require("./client")
 
@@ -19,7 +23,7 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
-    CREATE TALBE mytablename
+    CREATE TABLE mytablename
     `)
   } catch (error) {
     console.error("Error building tables!");

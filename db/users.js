@@ -20,7 +20,7 @@ async function createUser({ username, password }) {
 }
 
 async function getUser({ username, password }) {
-
+  
 }
 
 async function getUserById(userId) {
