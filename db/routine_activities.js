@@ -5,7 +5,13 @@ async function addActivityToRoutine({
   activityId,
   count,
   duration,
-}) {}
+}) {
+  try {
+    
+  } catch (error) {
+    
+  }
+}
 
 async function getRoutineActivityById(id) {}
 
