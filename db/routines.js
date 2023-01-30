@@ -18,7 +18,17 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
 
 async function getRoutineById(id) {}
 
-async function getRoutinesWithoutActivities() {}
+async function getRoutinesWithoutActivities() {
+ try{
+  const {rows} = await client.query(
+    `SELECT * FROM routines;`
+  );
+  return rows;
+ } catch (error){
+  console.error("Error!")
+  throw error;
+ }
+}
 
 async function getAllRoutines() {}
 
