@@ -13,6 +13,7 @@ async function dropTables() {
   DROP TABLE IF EXISTS users;
   DROP TABLE IF EXISTS activities;
   DROP TABLE IF EXISTS routines;
+  DROP TABLE IF EXISTS routine_activities;
   `);
   }
   catch (error){
@@ -43,6 +44,14 @@ async function createTables() {
       "isPublic" BOOLEAN DEFAULT false,
       name VARCHAR(255) UNIQUE NOT NULL,
       goal TEXT NOT NULL
+    );
+
+    CREATE TABLE routine_activities(
+      id SERIAL PRIMARY KEY,
+      "routineId" INTEGER REFERENCES routines(id),
+      "activityId" INTEGER REFERENCES activities(id),
+      duration INTEGER,
+      count INTEGER,
     );
     `)
   } catch (error) {

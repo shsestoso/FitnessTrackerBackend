@@ -1,4 +1,5 @@
 const client = require("./client");
+const {createActivity} = require("./activities");
 
 async function addActivityToRoutine({
   routineId,
@@ -7,7 +8,9 @@ async function addActivityToRoutine({
   duration,
 }) {
   try {
-    
+    const createActivityPromises = activityId.map(
+      tag => 
+    )
   } catch (error) {
     
   }
