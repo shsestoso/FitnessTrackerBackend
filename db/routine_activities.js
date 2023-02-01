@@ -1,5 +1,6 @@
 const client = require("./client");
 
+// STILL HAVING ERROR HERE. GO BACK WHEN DONE WITH SOME TESTS
 async function addActivityToRoutine({
   routineId,
   activityId,
@@ -13,14 +14,13 @@ async function addActivityToRoutine({
       "routineId", "activityId", count, duration
     )
     VALUES ($1, $2, $3, $4 )
-    ON CONFLICT ("routineId", "activityId") DO NOTHING
-    RETURNING * ;
-    
+    ON CONFLICT ON CONSTRAINT ("routineId", "activityId") DO NOTHING
+    RETURNING *;
     `, [ routineId, activityId, count, duration]
-   )
+   );
    return SQL.rows[0]
   } catch (error) {
-    console.log("error")
+    console.log("ERROR BUILTING ROUTINE_ACTIVITIES")
     throw error
   }
 }

@@ -9,11 +9,12 @@ const client = require("./client")
 async function dropTables() {
   try{
   console.log("Dropping All Tables...")
-  await client.query(`
-  DROP TABLE IF EXISTS users;
-  DROP TABLE IF EXISTS activities;
-  DROP TABLE IF EXISTS routines;
-  DROP TABLE IF EXISTS routine_activities
+  await client.query(
+    `
+    DROP TABLE IF EXISTS routine_activities;
+    DROP TABLE IF EXISTS routines;
+    DROP TABLE IF EXISTS activities;
+    DROP TABLE IF EXISTS users;
   `);
   }
   catch (error){
