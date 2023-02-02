@@ -21,7 +21,7 @@ async function createUser({ username, password }) {
 }
 
 async function getUser({ username, password }) {
-  try {
+  try {   
     const {rows} = await client.query(`
     SELECT username, password
     FROM users;

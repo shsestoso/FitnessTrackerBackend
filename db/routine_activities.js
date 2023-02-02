@@ -1,6 +1,5 @@
 const client = require("./client");
 
-// STILL HAVING ERROR HERE. GO BACK WHEN DONE WITH SOME TESTS
 async function addActivityToRoutine({
   routineId,
   activityId,
@@ -8,38 +7,36 @@ async function addActivityToRoutine({
   duration,
 }) {
   try {
-   const SQL = await client.query(
-    `
-    INSERT INTO routine_activities (
-      "routineId", "activityId", count, duration
-    )
-    VALUES ($1, $2, $3, $4 )
+    const { rows: [routineActivity] } = await client.query(`
+    INSERT INTO routine_activities ( "routineId", "activityId", count , duration)
+    VALUES($1, $2, $3, $4)
     ON CONFLICT ON CONSTRAINT ("routineId", "activityId") DO NOTHING
     RETURNING *;
-    `, [ routineId, activityId, count, duration]
-   );
-   return SQL.rows[0]
+      `, [ routineId, activityId, count, duration]);
+    return routineActivity;
   } catch (error) {
-    console.log("ERROR BUILTING ROUTINE_ACTIVITIES")
-    throw error
+    console.log("ERROR ACTIVITIES_ROUTINE")
+    throw error;
   }
 }
 
-// async function getRoutineActivityById(id) {}
+// STILL HAVING ERROR HERE. GO BACK WHEN DONE WITH SOME TESTS
 
-// async function getRoutineActivitiesByRoutine({ id }) {}
+async function getRoutineActivityById(id) {}
 
-// async function updateRoutineActivity({ id, ...fields }) {}
+async function getRoutineActivitiesByRoutine({ id }) {}
 
-// async function destroyRoutineActivity(id) {}
+async function updateRoutineActivity({ id, ...fields }) {}
 
-// async function canEditRoutineActivity(routineActivityId, userId) {}
+async function destroyRoutineActivity(id) {}
+
+async function canEditRoutineActivity(routineActivityId, userId) {}
 
 module.exports = {
- // getRoutineActivityById,
+ getRoutineActivityById,
   addActivityToRoutine,
-  // getRoutineActivitiesByRoutine,
-  // updateRoutineActivity,
-  // destroyRoutineActivity,
-  // canEditRoutineActivity,
+  getRoutineActivitiesByRoutine,
+  updateRoutineActivity,
+  destroyRoutineActivity,
+  canEditRoutineActivity,
 };

@@ -16,7 +16,7 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
   }
 }
 
-//async function getRoutineById(id) {}
+async function getRoutineById(id) {}
 
 async function getRoutinesWithoutActivities() {
  try{
@@ -30,29 +30,29 @@ async function getRoutinesWithoutActivities() {
  }
 }
 
-// async function getAllRoutines() {}
+async function getAllRoutines() {}
 
-// async function getAllPublicRoutines() {}
+async function getAllPublicRoutines() {}
 
-// async function getAllRoutinesByUser({ username }) {}
+async function getAllRoutinesByUser({ username }) {}
 
-// async function getPublicRoutinesByUser({ username }) {}
+async function getPublicRoutinesByUser({ username }) {}
 
-// async function getPublicRoutinesByActivity({ id }) {}
+async function getPublicRoutinesByActivity({ id }) {}
 
-// async function updateRoutine({ id, ...fields }) {}
+async function updateRoutine({ id, ...fields }) {}
 
-// async function destroyRoutine(id) {}
+async function destroyRoutine(id) {}
 
 module.exports = {
-  //getRoutineById,
+  getRoutineById,
   getRoutinesWithoutActivities,
-  // getAllRoutines,
-  // getAllPublicRoutines,
-  // getAllRoutinesByUser,
-  // getPublicRoutinesByUser,
-  // getPublicRoutinesByActivity,
+  getAllRoutines,
+  getAllPublicRoutines,
+  getAllRoutinesByUser,
+  getPublicRoutinesByUser,
+  getPublicRoutinesByActivity,
   createRoutine,
-  // updateRoutine,
-  // destroyRoutine,
+  updateRoutine,
+  destroyRoutine,
 };
