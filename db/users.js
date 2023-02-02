@@ -20,20 +20,36 @@ async function createUser({ username, password }) {
   }
 }
 
-async function getUser({ username, password }) {
-  try {   
-    const {rows} = await client.query(`
-    SELECT username, password
-    FROM users;
-    `, [username, password]);
-    return rows;
-  } catch (error){
-    console.log("Error getUser")
-    throw error;
+async function getUser({ username, password }){
+  try {
+    
+      if(!password){
+        return null
+      }
+    
+  } catch (error) {
+    console.log("error")
+    throw error
   }
 }
+ 
 
- async function getUserById(userId) {
+async function getUserById(userId) {
+  try {
+    const {rows: [user]} = await client.query(
+      `
+      SELECT id, username
+      FROM users
+      WHERE id= ${userId}
+      `);
+      if(!user){
+        return null
+      }
+      return user;
+  } catch (error) {
+    console.log("error")
+    throw error
+  }
 
 }
 
