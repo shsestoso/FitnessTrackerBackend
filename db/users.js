@@ -33,34 +33,17 @@ async function getUser({ username, password }) {
   }
 }
 
-//  async function getUserById(userId) {
-//   try {
-//     const {rows:[user]} = await client.query (
-//       `
-//       SELECT id, username
-//       FROM users
-//       WHERE id= ${userId}
-//       `);
-//       if (!user) {
-//         return null
-//       }
+ async function getUserById(userId) {
 
-//      return user;
+}
 
-//   } catch (error) {
-//     console.log( "Error getUserById")
-//     throw error
-//   }
+async function getUserByUsername(userName) {
 
-// }
-
-// async function getUserByUsername(userName) {
-
-// }
+}
 
 module.exports = {
   createUser,
   getUser,
-  //getUserById,
-//   getUserByUsername,
+  getUserById,
+  getUserByUsername,
 }
