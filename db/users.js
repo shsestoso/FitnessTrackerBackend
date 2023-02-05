@@ -54,7 +54,19 @@ async function getUserById(userId) {
 }
 
 async function getUserByUsername(userName) {
-
+  try {
+    const {rows: [user]} = await client.query(
+      `
+      SELECT username 
+      FROM users
+      WHERE username= users.username
+      `
+    )
+    return user;
+  } catch(error){
+    console.log(error)
+    throw error
+  }
 }
 
 module.exports = {
