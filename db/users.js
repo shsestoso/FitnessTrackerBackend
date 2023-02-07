@@ -9,64 +9,62 @@ async function createUser({ username, password }) {
     INSERT INTO users (username, password)
     VALUES($1, $2)
     ON CONFLICT (username) DO NOTHING
-    RETURNING *;
+    RETURNING username, id;
     `,[username, password]);
     console.log("this is user", user);
     return user;
   }
   catch(error){
     console.error('Error creating users!');
-    throw error;
   }
 }
 
 async function getUser({ username, password }){
   try {
-    
-      if(!password){
-        return null
-      }
-    
+    const {rows: [user]} = await client.query(
+      `
+      SELECT username,id FROM users
+      WHERE username = $1 AND password = $2
+      `, [username, password]
+    )
+    if(!user){
+      throw new Error("Could not get user!")
+    }
+    return user   
   } catch (error) {
-    console.log("error")
-    throw error
+    console.log(error)
   }
 }
  
 
 async function getUserById(userId) {
   try {
-    const {rows: [user]} = await client.query(
+    const {rows:[user]} = await client.query(
       `
-      SELECT id, username
-      FROM users
-      WHERE id= ${userId}
-      `);
-      if(!user){
-        return null
-      }
-      return user;
+      SELECT username,id FROM users
+      WHERE id=$1
+      `, [userId]
+    )
+    console.log("RETURNING USER", user)
+    return user
   } catch (error) {
-    console.log("error")
-    throw error
+    console.log(error)
+    
   }
-
 }
 
 async function getUserByUsername(userName) {
   try {
     const {rows: [user]} = await client.query(
-      `
-      SELECT username 
-      FROM users
-      WHERE username= users.username
-      `
+      `SELECT * FROM users
+      WHERE username=$1
+     `, [userName]
     )
-    return user;
-  } catch(error){
+    return user
+  } catch (error) {
     console.log(error)
-    throw error
   }
+
 }
 
 module.exports = {

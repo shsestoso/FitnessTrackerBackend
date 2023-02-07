@@ -7,8 +7,8 @@ async function createRoutine({ creatorId, isPublic, name, goal}){
       INSERT INTO routines ("creatorId", "isPublic", name, goal)
       VALUES ($1, $2, $3, $4)
       RETURNING *
-      `, [creatorId, isPublic, name, goal]
-    );
+      `,[creatorId, isPublic, name, goal]);
+    console.log("this is routine", routine)
     return routine;  
   } catch (error) {
     console.log(error)
@@ -16,7 +16,19 @@ async function createRoutine({ creatorId, isPublic, name, goal}){
   }
 }
 
-async function getRoutineById(id) {}
+async function getRoutineById(id) {
+  try {
+    const {rows: [routine]} = await client.query(
+      `SELECT * FROM routines
+      WHERE id = ${routinesId}
+      RETURNING *`
+    )
+    console.log("this is routine from getroutinebyidroutine",routine)
+    return routine
+  } catch (error) {
+    
+  }
+}
 
 async function getRoutinesWithoutActivities() {
  try{
