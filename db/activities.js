@@ -87,23 +87,24 @@ async function attachActivitiesToRoutines(routines) {
 }
 
 
-async function updateActivity({ id, ...fields }) {
-  // don't try to update the id
-  // do update the name and description
-  // return the updated activity
- try {
-  const {rows:[activity]} = await client.query(
-    `
-    UPDATE activities 
-    SET name=$1, description=$2
-    WHERE id=id
-    `, [id, ...fields]
-  )
-  return activity
- } catch (error) {
-  console.log(error)
- }
-}
+// async function updateActivity({ id, ...fields }) {
+//   // don't try to update the id
+//   // do update the name and description
+//   // return the updated activity
+//   try {
+//   const {rows:[activity]} = await client.query(
+//     `
+//     UPDATE activities 
+//     SET name=$1, description=$2
+//     WHERE id=${id}
+//     RETURNING name, description
+//     `, [Obj.values(fields)]
+//   )
+//   return activity
+//  } catch (error) {
+//   console.log(error)
+//  }
+// }
 
 module.exports = {
   getAllActivities,
@@ -111,5 +112,5 @@ module.exports = {
   getActivityByName,
   attachActivitiesToRoutines,
   createActivity,
-  updateActivity,
+  //updateActivity,
 };
