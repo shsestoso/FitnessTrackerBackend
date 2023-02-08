@@ -58,6 +58,9 @@ async function getAllRoutines() {
     console.log(error)
     throw error;
   }
+  finally{
+    client.end();
+  }
   }
  
 
