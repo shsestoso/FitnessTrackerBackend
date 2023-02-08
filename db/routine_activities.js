@@ -22,7 +22,9 @@ async function addActivityToRoutine({
 
 // STILL HAVING ERROR HERE. GO BACK WHEN DONE WITH SOME TESTS
 
-async function getRoutineActivityById(id) {}
+async function getRoutineActivityById(id) {
+
+}
 
 async function getRoutineActivitiesByRoutine({ id }) {}
 
