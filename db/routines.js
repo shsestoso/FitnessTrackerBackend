@@ -2,17 +2,16 @@ const client = require("./client");
 
 async function createRoutine({ creatorId, isPublic, name, goal}){
   try {
-    const {rows:[routine]} = await client.query(
+    const {rows: [routine]} = await client.query(
       `
       INSERT INTO routines ("creatorId", "isPublic", name, goal)
       VALUES ($1, $2, $3, $4)
       RETURNING *
-      `,[creatorId, isPublic, name, goal]);
-    console.log("this is routine", routine)
-    return routine;  
+      `, [creatorId, isPublic, name, goal]
+    )
+    return routine
   } catch (error) {
     console.log(error)
-    throw error;
   }
 }
 
@@ -67,13 +66,26 @@ async function getAllPublicRoutines() {}
 
 async function getAllRoutinesByUser({ username }) {}
 
-async function getPublicRoutinesByUser({ username }) {}
+async function getPublicRoutinesByUser({ username }) {
+   if(!isPublic){
+   try {
+    const {rows: [routine]} = await client.query(
+      `SELECT "creatorId", name, goal, id
+      WHERE username = $1`, [username]
+    )
+    return routine
+   } catch (error) {
+    console.log(error)
+   }
+  }
+
 
 async function getPublicRoutinesByActivity({ id }) {}
 
 async function updateRoutine({ id, ...fields }) {}
 
 async function destroyRoutine(id) {}
+
 
 module.exports = {
   getRoutineById,
@@ -85,5 +97,6 @@ module.exports = {
   getPublicRoutinesByActivity,
   createRoutine,
   updateRoutine,
-  destroyRoutine,
-};
+  destroyRoutine
+}
+}
