@@ -6,7 +6,7 @@ async function createRoutine({ creatorId, isPublic, name, goal}){
       `
       INSERT INTO routines ("creatorId", "isPublic", name, goal)
       VALUES ($1, $2, $3, $4)
-      RETURNING *
+      RETURNING *;
       `, [creatorId, isPublic, name, goal]
     )
     return routine
@@ -64,20 +64,20 @@ async function getAllRoutines() {
 
 async function getAllPublicRoutines() {}
 
-async function getAllRoutinesByUser({ username }) {}
+// async function getAllRoutinesByUser({ username }) {}
 
-async function getPublicRoutinesByUser({ username }) {
-   if(!isPublic){
-   try {
-    const {rows: [routine]} = await client.query(
-      `SELECT "creatorId", name, goal, id
-      WHERE username = $1`, [username]
-    )
-    return routine
-   } catch (error) {
-    console.log(error)
-   }
-  }
+// async function getPublicRoutinesByUser({ username }) {
+//    if(!isPublic){
+//    try {
+//     const {rows: [routine]} = await client.query(
+//       `SELECT "creatorId", name, goal, id
+//       WHERE username = $1`, [username]
+//     )
+//     return routine
+//    } catch (error) {
+//     console.log(error)
+//    }
+//   }
 
 
 async function getPublicRoutinesByActivity({ id }) {}
@@ -92,11 +92,10 @@ module.exports = {
   getRoutinesWithoutActivities,
   getAllRoutines,
   getAllPublicRoutines,
-  getAllRoutinesByUser,
-  getPublicRoutinesByUser,
+  // getAllRoutinesByUser,
+  // getPublicRoutinesByUser,
   getPublicRoutinesByActivity,
   createRoutine,
   updateRoutine,
   destroyRoutine
-}
 }

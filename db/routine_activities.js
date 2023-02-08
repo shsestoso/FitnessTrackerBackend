@@ -7,28 +7,32 @@ async function addActivityToRoutine({
   duration,
 }) {
   try {
-    const { rows: [routineActivity] } = await client.query(`
+    const { rows: [routine_activity] } = await client.query(`
     INSERT INTO routine_activities ( "routineId", "activityId", count , duration)
     VALUES($1, $2, $3, $4)
     ON CONFLICT ("routineId", "activityId") DO NOTHING
-    RETURNING *;
+    RETURNING "routineId", "activityId", count , duration, id;
       `, [ routineId, activityId, count, duration]);
-    return routineActivity;
+      console.log(routine_activity)
+    return routine_activity;
   } catch (error) {
     console.log("ERROR ACTIVITIES_ROUTINE")
-    throw error;
   }
 }
 
-<<<<<<< HEAD
-// STILL HAVING ERROR HERE. GO BACK WHEN DONE WITH SOME TESTS
 
 async function getRoutineActivityById(id) {
-
+try {
+  const {rows: [routine_activity]} = await client.query(`
+  SELECT "routineId", "activityId", count , duration
+  FROM routine_activity
+  WHERE id=$1
+  `, [id])
+  return routine_activity
+} catch (error) {
+  console.log(error)
 }
-=======
-async function getRoutineActivityById(id) {}
->>>>>>> refs/remotes/origin/main
+}
 
 async function getRoutineActivitiesByRoutine({ id }) {}
 
