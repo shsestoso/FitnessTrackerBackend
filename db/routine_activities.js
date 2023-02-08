@@ -24,29 +24,41 @@ async function addActivityToRoutine({
 async function getRoutineActivityById(id) {
 try {
   const {rows: [routine_activity]} = await client.query(`
-  SELECT "routineId", "activityId", count , duration
-  FROM routine_activity
+  SELECT "routineId", "activityId", count , duration, id
+  FROM routine_activities
   WHERE id=$1
   `, [id])
-  return routine_activity
+  return routine_activity;
 } catch (error) {
   console.log(error)
 }
 }
 
-async function getRoutineActivitiesByRoutine({ id }) {}
+async function getRoutineActivitiesByRoutine({ id }) {
+  try {
+    const {rows: [routine_activity]} = await client.query(`
+    SELECT  "routineId", "activityId", count , duration, id
+    FROM routine_activities
+    WHERE "routineId"=$1;
+    `,[id])
+    return routine_activity;
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 
-async function updateRoutineActivity({ id, ...fields }) {}
+// async function updateRoutineActivity({ id, ...fields }) {}
 
-async function destroyRoutineActivity(id) {}
+// async function destroyRoutineActivity(id) {}
 
-async function canEditRoutineActivity(routineActivityId, userId) {}
+// async function canEditRoutineActivity(routineActivityId, userId) {}
 
 module.exports = {
  getRoutineActivityById,
   addActivityToRoutine,
   getRoutineActivitiesByRoutine,
-  updateRoutineActivity,
-  destroyRoutineActivity,
-  canEditRoutineActivity,
+  // updateRoutineActivity,
+  // destroyRoutineActivity,
+  // canEditRoutineActivity,
 };
