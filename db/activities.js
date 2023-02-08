@@ -94,9 +94,9 @@ async function updateActivity({ id, ...fields }) {
  try {
   const {rows:[activity]} = await client.query(
     `
-    UPDATE name, description FROM activities
-    WHERE name=$1 AND description=$2
-    RETURNING name AND description
+    UPDATE activities 
+    SET name=$1, description=$2
+    WHERE id=id
     `, [id, ...fields]
   )
   return activity
