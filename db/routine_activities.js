@@ -10,7 +10,7 @@ async function addActivityToRoutine({
     const { rows: [routineActivity] } = await client.query(`
     INSERT INTO routine_activities ( "routineId", "activityId", count , duration)
     VALUES($1, $2, $3, $4)
-    ON CONFLICT ON CONSTRAINT ("routineId", "activityId") DO NOTHING
+    ON CONFLICT ("routineId", "activityId") DO NOTHING
     RETURNING *;
       `, [ routineId, activityId, count, duration]);
     return routineActivity;
@@ -20,11 +20,15 @@ async function addActivityToRoutine({
   }
 }
 
+<<<<<<< HEAD
 // STILL HAVING ERROR HERE. GO BACK WHEN DONE WITH SOME TESTS
 
 async function getRoutineActivityById(id) {
 
 }
+=======
+async function getRoutineActivityById(id) {}
+>>>>>>> refs/remotes/origin/main
 
 async function getRoutineActivitiesByRoutine({ id }) {}
 
