@@ -67,6 +67,7 @@ async function attachActivitiesToRoutines(routines) {
       routinesById[routine.id] = {
         id: routine.id,
         creatorId: routine.creatorId,
+        creatorName: routine.creatorName,
         isPublic: routine.isPublic,
         name: routine.name,
         goal: routine.goal,
@@ -74,6 +75,8 @@ async function attachActivitiesToRoutines(routines) {
       };
     }
     const activity = {
+      routineActivityId: routine.routineActivityId,
+      routineId: routine.id,
       name: routine.activityName,
       id: routine.activityId,
       description: routine.description,
