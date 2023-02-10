@@ -64,7 +64,24 @@ async function getAllRoutines() {
  
 
 
-async function getAllPublicRoutines() {}
+async function getAllPublicRoutines() {
+  try{
+    const {rows} = await client.query(
+      `SELECT routines.*, count, duration, activities.name as "activityName", routine_activities.id as "routineActivityId", activities.id as "activityId", description, username as "creatorName"
+      FROM routines
+        JOIN routine_activities ON routines.id = routine_activities."routineId"
+        JOIN activities ON activities.id = routine_activities."activityId"
+        JOIN users ON routines."creatorId" = users.id
+      `
+    );
+   let routines =  await attachActivitiesToRoutines(rows);
+   routines = Object.values(routines)
+   console.log("returning allRoutines",routines)
+   return routines
+  }catch (error){
+    console.log(error)
+  }
+}
 
 async function getAllRoutinesByUser({ username }) {
   try{
@@ -93,9 +110,9 @@ async function getPublicRoutinesByUser({ username }) {
 
 
 
-// async function getPublicRoutinesByActivity({ id }) {
+async function getPublicRoutinesByActivity({ id }) {
 
-// }
+}
 
 async function updateRoutine({ id, ...fields}) {
   const setFields = Object.keys(fields).map(
