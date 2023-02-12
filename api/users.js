@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 const express = require("express");
 const userRouter = express.Router();
-const {createUser, getUserByUsername} = require('../db');
+const {createUser, getUserByUsername, getUser} = require('../db');
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = process.env;
 
@@ -35,7 +35,17 @@ next(name, message, error);
 // POST /api/users/login
 
 // GET /api/users/me
-
+userRouter.get('/me', async (req, res, next)=> {
+   const {username} = req.body;
+   try {
+    const users = getUser(username);
+    if (users){
+        res.status(401).send({name: })
+    }
+   } catch (error) {
+    
+   }
+})
 // GET /api/users/:username/routines
 
 module.exports = userRouter;
