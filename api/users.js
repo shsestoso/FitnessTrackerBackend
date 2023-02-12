@@ -34,18 +34,36 @@ next(name, message, error);
 
 // POST /api/users/login
 
-// GET /api/users/me
-userRouter.get('/me', async (req, res, next)=> {
-   const {username} = req.body;
-   try {
-    const users = getUser(username);
-    if (users){
-        res.status(401).send({name: })
+userRouter.post('/login', async (req, res, next)=>{
+    try {
+        const{username, password} = req.body;
+        const user = await getUser({username,password});
+        if (user){
+            res.status(401).send({name:"", message:"", error:""});
+        }
+        const token = jwt.sign(
+            {id: user.id, username: user.username}, 
+            JWT_SECRET
+        );
+        res.send({token});
+    } catch (err) {
+        next(err);
     }
-   } catch (error) {
-    
-   }
 })
-// GET /api/users/:username/routines
+
+// GET /api/users/me
+// userRouter.get('/me', async (req, res, next)=> {
+//    const {username} = req.body;
+//    try {
+//     const users = getUser(username);
+//     if (users){
+//         res.status(401).send({name: })
+//     }
+//    } catch (error) {
+    
+//    }
+// })
+
+// // GET /api/users/:username/routines
 
 module.exports = userRouter;
