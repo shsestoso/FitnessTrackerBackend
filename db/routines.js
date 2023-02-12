@@ -199,6 +199,6 @@ module.exports = {
   getPublicRoutinesByUser,
   getPublicRoutinesByActivity,
   createRoutine,
-  updateRoutine
+  updateRoutine,
   destroyRoutine
 }
