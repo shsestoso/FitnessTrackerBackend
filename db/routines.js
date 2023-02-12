@@ -137,7 +137,7 @@ async function getPublicRoutinesByActivity({ id }) {
         JOIN routine_activities ON routines.id = routine_activities."routineId"
         JOIN activities ON activities.id = routine_activities."activityId"
         JOIN users ON routines."creatorId" = users.id
-        WHERE "isPublic" = 'true' AND id = $1
+        WHERE "isPublic" = true AND "activityId" = $1
       `, [id]
     );
    let routines =  await attachActivitiesToRoutines(rows);
