@@ -58,7 +58,7 @@ async function destroyRoutineActivity(id) {
       WHERE id=$1
       
       `,
-      [routineActivityId]
+      [id]
     );
 
     return rows;
@@ -75,7 +75,7 @@ async function canEditRoutineActivity(routineActivityId, userId) {
       SELECT * FROM routine_activities
       WHERE "routineId"=$1;
       `,
-      [routineId]
+      [routineActivityId, userId]
     );
 
     return routineActivities;
