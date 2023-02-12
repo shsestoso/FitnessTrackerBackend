@@ -1,14 +1,13 @@
 /* eslint-disable no-useless-catch */
 const express = require("express");
-const router = express.Router();
-const {createUser, getUser} = require('../db');
-const jwt = require('jsonwebtoken');
-const {JWT} = process.env;
+const userRouter = express.Router();
+const {createUser} = require('../db');
+
 // practice 
 
 
 // POST /api/users/register
-router.post('/register', async(req, res, next)=>{
+userRouter.post('/register', async(req, res, next)=>{
     try{
         const {username, password} = req.body;
         if (password.length < 8){
@@ -28,4 +27,4 @@ next(err);
 
 // GET /api/users/:username/routines
 
-module.exports = router;
+module.exports = userRouter;
