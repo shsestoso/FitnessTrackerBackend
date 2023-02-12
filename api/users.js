@@ -4,7 +4,7 @@ const router = express.Router();
 const {createUser, getUser} = require('../db');
 const jwt = require('jsonwebtoken');
 const {JWT} = process.env;
-
+// practice 
 
 
 // POST /api/users/register
