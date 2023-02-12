@@ -86,6 +86,7 @@ async function getAllPublicRoutines() {
 
 async function getAllRoutinesByUser({ username }) {
   try{
+
     const {rows} = await client.query(
       `SELECT routines.*, count, duration, activities.name as "activityName", routine_activities.id as "routineActivityId", activities.id as "activityId", description, username as "creatorName"
       FROM routines
@@ -170,7 +171,23 @@ async function updateRoutine({ id, ...fields}) {
 
 
 
-//async function destroyRoutine(id) {}
+async function destroyRoutine(id) {
+  try {
+    const { rows } = await client.query(
+      `
+      DELETE FROM routines
+      WHERE id=$1;
+      `,
+      [id]
+    );
+
+    return rows;
+  } catch (err) {
+    console.log("Error delting routines")
+    throw err;
+  }
+
+}
 
 
 module.exports = {
@@ -183,5 +200,5 @@ module.exports = {
   getPublicRoutinesByActivity,
   createRoutine,
   updateRoutine
-  //destroyRoutine
+  destroyRoutine
 }
