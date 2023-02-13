@@ -69,6 +69,7 @@ router.patch('/:routineId', async(req, res, next)=>{
 
 // DELETE /api/routines/:routineId
 
+
 router.delete('/:routineId', async(req, res, next) =>{
     const authorization = req.header("authorization");
     try{
@@ -80,13 +81,7 @@ router.delete('/:routineId', async(req, res, next) =>{
             });        
         }
         else{
-        const routineActivities = await getRoutineActivitiesByRoutine({
-            routineId: req.params.routineId,
-        });
-        for (let i = 0; i < routineActivities.length; i++){
-            await destroyRoutineActivity(routineActivities[i].id);
-        }
-        const deleteRoutines = await destroyRoutine( {id: req.params.routineId});
+        const deleteRoutines = await destroyRoutine( req.params.routineId);
         res.send(deleteRoutines);
         }
     }
