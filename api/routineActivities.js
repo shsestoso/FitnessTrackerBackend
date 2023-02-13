@@ -6,6 +6,8 @@ const router = express.Router();
 // PATCH /api/routine_activities/:routineActivityId
 
 router.patch('/:routineActivityId',async(req, res, next) => {
+    console.log('this is params for routineAct', req.params);
+    console.log('this is body for routineAct')
     const authorization = req.header("authorization");
     try{
         if (!authorization){
