@@ -18,12 +18,8 @@ router.get("/:activityId/routines", async(req, res, next) => {
 })
 // GET /api/activities
 router.get('/', async(req, res, next) => {
- try {
     const activities = await getAllActivities();
- res.send(activities)
- } catch (error) {
-    next(error)
- }
+    res.send(activities)
 })
 
 // POST /api/activities
@@ -53,8 +49,10 @@ router.patch('/:activityId', async(req, res, next) => {
     if (description){
         updateFields.description = description;
     }
+    console.log('this is updateFields:', updateFields)
     try {
-        const updatingActivities = await updateActivity({activityId})
+        const updatingActivities = await updateActivity({id: activityId});
+        console.log('this is updatingactivities',updatingActivities)
         if(!updatingActivities.length) {
             res.send({error: "Error updating activities", message: " ", name: "Sean"})
         }

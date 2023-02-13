@@ -12,7 +12,7 @@ router.patch('/:routineActivityId',async(req, res, next) => {
             res.send({
                 error: "Error",
                 message: "User Lizzy is not allowed to update In the evening",
-                name: "Error"
+                name: "Shai"
             })
         }
         else {

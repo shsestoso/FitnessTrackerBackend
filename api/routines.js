@@ -1,5 +1,5 @@
 const express = require('express');
-const { getRoutineActivitiesByRoutine, createRoutine, getAllPublicRoutines, updateRoutine, destroyRoutine, destroyRoutineActivity } = require('../db');
+const {  createRoutine, getAllPublicRoutines, updateRoutine, destroyRoutine } = require('../db');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = process.env;
@@ -71,6 +71,8 @@ router.patch('/:routineId', async(req, res, next)=>{
 
 
 router.delete('/:routineId', async(req, res, next) =>{
+    console.log('this is params for delete', req.params);
+   const {routineId} = req.params;
     const authorization = req.header("authorization");
     try{
         if(!authorization){
@@ -81,7 +83,7 @@ router.delete('/:routineId', async(req, res, next) =>{
             });        
         }
         else{
-        const deleteRoutines = await destroyRoutine( req.params.routineId);
+        const deleteRoutines = await destroyRoutine( routineId);
         res.send(deleteRoutines);
         }
     }
@@ -91,5 +93,13 @@ router.delete('/:routineId', async(req, res, next) =>{
 } )
 
 // POST /api/routines/:routineId/activities
+router.post('/:routineId/activities', async (req, res, next) => {
+    console.log('this is params for POSt:', req.params);
+    console.log('this is body for POSR:', req.body)
+   
+    
+})
+
+
 
 module.exports = router;
